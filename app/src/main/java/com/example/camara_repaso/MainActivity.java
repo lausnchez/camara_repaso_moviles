@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -70,7 +71,8 @@ public class MainActivity extends AppCompatActivity {
 
     private static final int CODIGO_SOLICITUD_PERMISOS = 10;
     private String rutaFotoActual;
-    private ImageView iv_foto = findViewById(R.id.img_foto);
+    private ImageView iv_foto;
+    private Button btn_foto;
 
     /**
      * Genera un array de Strings con los permisos que queremos pedirle al usuario
@@ -199,6 +201,15 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-        solicitarPermisos();
+        iv_foto =  findViewById(R.id.img_foto);
+        btn_foto = findViewById(R.id.btn_foto);
+        btn_foto.setOnClickListener(v -> {
+            if (!todosPermisosConcedidos()){
+                solicitarPermisos();
+            }
+            lanzarIntentCapturaFoto();
+        });
+
+
     }
 }
